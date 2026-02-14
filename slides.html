@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Student Management System - Presentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { width: 100%; }
+        .reveal code { padding: 2px 6px; background: rgba(255,255,255,0.1); }
+        .reveal pre code { background: rgba(0,0,0,0.3); padding: 20px; }
+        .diagram { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0; font-family: monospace; font-size: 0.7em; }
+        .two-column { display: flex; gap: 20px; }
+        .column { flex: 1; }
+        table { margin: 20px auto; border-collapse: collapse; }
+        table th, table td { border: 1px solid #555; padding: 10px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE SLIDE -->
+            <section>
+                <h1>Laravel Student Management System</h1>
+                <h3>Building Database Applications with Modern Web Framework</h3>
+                <p style="margin-top: 60px;">
+                    <small>Seminar Nasional Database Management</small><br>
+                    <small>February 14, 2026</small>
+                </p>
+                <aside class="notes">
+                    Welcome everyone! Today we'll explore how to build a modern web application using Laravel framework. We'll learn about database design, MVC architecture, and practical CRUD operations. By the end of this session, you'll understand how these concepts work together.
+                </aside>
+            </section>
+
+            <!-- SLIDE 2: AGENDA -->
+            <section>
+                <h2>Agenda</h2>
+                <ul style="line-height: 1.8;">
+                    <li><strong>5 min:</strong> Opening & Project Overview</li>
+                    <li><strong>10 min:</strong> Technology Stack & Architecture</li>
+                    <li><strong>10 min:</strong> Database Design & Schema</li>
+                    <li><strong>20 min:</strong> Live Demo - CRUD Operations</li>
+                    <li><strong>10 min:</strong> Code Walkthrough & Security</li>
+                    <li><strong>5 min:</strong> Q&A & Closing</li>
+                </ul>
+                <p style="margin-top: 40px; font-size: 0.9em; color: #888;">Total: 60 minutes</p>
+                <aside class="notes">
+                    Here's our agenda for today. We'll start with an overview, then dive into technology and architecture. The core of our session will be a live demo where you can see everything in action, followed by code walkthrough explaining the security features built in.
+                </aside>
+            </section>
+
+            <!-- SLIDE 3: LEARNING OBJECTIVES -->
+            <section>
+                <h2>Learning Objectives</h2>
+                <p style="margin-bottom: 30px;">After this session, you will understand:</p>
+                <ul style="line-height: 2;">
+                    <li>✓ MVC (Model-View-Controller) Architecture</li>
+                    <li>✓ Database Design & Migrations</li>
+                    <li>✓ REST API & Routing Concepts</li>
+                    <li>✓ CRUD Operations & Implementation</li>
+                    <li>✓ Web Security Best Practices</li>
+                    <li>✓ Form Validation & Error Handling</li>
+                </ul>
+                <aside class="notes">
+                    These are the key learning objectives. You don't need to memorize everything today, but you'll have documentation and source code to reference later.
+                </aside>
+            </section>
+
+            <!-- SLIDE 4: PROJECT OVERVIEW -->
+            <section>
+                <h2>Project Overview</h2>
+                <div style="text-align: left;">
+                    <h4>Student Management System</h4>
+                    <p>A simple but complete web application that demonstrates:</p>
+                    <ul>
+                        <li>📊 <strong>Database Operations:</strong> Create, Read, Update, Delete students</li>
+                        <li>🏗️ <strong>Architecture:</strong> Models, Controllers, Views separation</li>
+                        <li>🔍 <strong>Validation:</strong> Input validation & error handling</li>
+                        <li>🔐 <strong>Security:</strong> CSRF protection, SQL injection prevention</li>
+                        <li>🎨 <strong>UI:</strong> Bootstrap 5 responsive design</li>
+                    </ul>
+                </div>
+                <aside class="notes">
+                    This Student Management System is a real-world example you can study and build upon. It's designed to be simple enough to understand quickly, but comprehensive enough to show real practices used in production applications.
+                </aside>
+            </section>
+
+            <!-- SLIDE 5: TECHNOLOGY STACK -->
+            <section>
+                <h2>Technology Stack</h2>
+                <table style="font-size: 0.85em;">
+                    <tr>
+                        <th>Layer</th>
+                        <th>Technology</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Framework</strong></td>
+                        <td>Laravel 12.51</td>
+                        <td>Web application framework</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Language</strong></td>
+                        <td>PHP 8.2+</td>
+                        <td>Server-side programming</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Database</strong></td>
+                        <td>SQLite 3</td>
+                        <td>Relational database</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ORM</strong></td>
+                        <td>Eloquent</td>
+                        <td>Database abstraction</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frontend</strong></td>
+                        <td>Bootstrap 5</td>
+                        <td>CSS framework</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Templating</strong></td>
+                        <td>Blade</td>
+                        <td>View templating</td>
+                    </tr>
+                </table>
+                <aside class="notes">
+                    Each component plays a specific role. Laravel provides the structure, PHP runs the code, SQLite stores our data, Eloquent makes database queries easy, and Bootstrap makes our UI look professional.
+                </aside>
+            </section>
+
+            <!-- SLIDE 6: MVC ARCHITECTURE -->
+            <section>
+                <h2>MVC Architecture</h2>
+                <div class="diagram">
+Request (HTTP GET /students)
+        ↓
+    [Router] - Match URL to action
+        ↓
+  [Controller] - Handle logic
+        ↓
+   [Model] - Fetch data from database
+        ↓
+   [View] - Render HTML response
+        ↓
+Response (HTML Page)
+                </div>
+                <p style="margin-top: 30px; text-align: center;">
+                    <small>Separation of concerns = Easier to maintain & test</small>
+                </p>
+                <aside class="notes">
+                    MVC separates our application into three parts. Model handles data, View handles presentation, and Controller handles the logic connecting them. This makes code cleaner and easier to maintain.
+                </aside>
+            </section>
+
+            <!-- SLIDE 7: DATABASE SCHEMA -->
+            <section>
+                <h2>Database Schema - Students Table</h2>
+                <table style="font-size: 0.8em; margin: 20px auto;">
+                    <tr style="background: #3f3f3f;">
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraint</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td>BIGINT</td>
+                        <td>PRIMARY KEY</td>
+                        <td>Unique identifier</td>
+                    </tr>
+                    <tr>
+                        <td><strong>nim</strong></td>
+                        <td>VARCHAR</td>
+                        <td>UNIQUE</td>
+                        <td>Student ID number</td>
+                    </tr>
+                    <tr>
+                        <td><strong>name</strong></td>
+                        <td>VARCHAR</td>
+                        <td></td>
+                        <td>Full name</td>
+                    </tr>
+                    <tr>
+                        <td><strong>email</strong></td>
+                        <td>VARCHAR</td>
+                        <td>UNIQUE</td>
+                        <td>Contact email</td>
+                    </tr>
+                    <tr>
+                        <td><strong>phone</strong></td>
+                        <td>VARCHAR</td>
+                        <td></td>
+                        <td>Phone number</td>
+                    </tr>
+                    <tr>
+                        <td><strong>address</strong></td>
+                        <td>TEXT</td>
+                        <td></td>
+                        <td>Street address</td>
+                    </tr>
+                    <tr>
+                        <td><strong>major</strong></td>
+                        <td>VARCHAR</td>
+                        <td></td>
+                        <td>Field of study</td>
+                    </tr>
+                    <tr>
+                        <td><strong>timestamps</strong></td>
+                        <td>DATETIME</td>
+                        <td></td>
+                        <td>created_at, updated_at</td>
+                    </tr>
+                </table>
+                <aside class="notes">
+                    Our schema is simple but follows best practices. Primary key for unique identification, unique constraints to prevent duplicates, and timestamps to track changes.
+                </aside>
+            </section>
+
+            <!-- SLIDE 8: CRUD OPERATIONS -->
+            <section>
+                <h2>CRUD Operations Flow</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: rgba(0,255,0,0.1); padding: 15px; border-radius: 5px;">
+                        <h4 style="color: #00ff00;">CREATE</h4>
+                        <p style="font-size: 0.8em;">
+                            User → Form → Validate<br>
+                            → Insert to DB<br>
+                            → Redirect + Success
+                        </p>
+                    </div>
+                    <div style="background: rgba(0,150,255,0.1); padding: 15px; border-radius: 5px;">
+                        <h4 style="color: #00aaff;">READ</h4>
+                        <p style="font-size: 0.8em;">
+                            User → Request<br>
+                            → Query DB<br>
+                            → Display Data
+                        </p>
+                    </div>
+                    <div style="background: rgba(255,200,0,0.1); padding: 15px; border-radius: 5px;">
+                        <h4 style="color: #ffcc00;">UPDATE</h4>
+                        <p style="font-size: 0.8em;">
+                            User → Form (Pre-filled)<br>
+                            → Validate → Update DB<br>
+                            → Redirect + Success
+                        </p>
+                    </div>
+                    <div style="background: rgba(255,0,0,0.1); padding: 15px; border-radius: 5px;">
+                        <h4 style="color: #ff6666;">DELETE</h4>
+                        <p style="font-size: 0.8em;">
+                            User → Confirm<br>
+                            → Delete from DB<br>
+                            → Redirect + Success
+                        </p>
+                    </div>
+                </div>
+                <aside class="notes">
+                    All operations follow a similar pattern: accept input, validate it, modify database, return response. This consistency makes the application predictable and maintainable.
+                </aside>
+            </section>
+
+            <!-- SLIDE 9: FILE STRUCTURE -->
+            <section>
+                <h2>Project File Structure</h2>
+                <pre style="font-size: 0.65em;"><code>student-management-system/
+├── app/
+│   ├── Models/
+│   │   └── Student.php          # Data model
+│   └── Http/Controllers/
+│       └── StudentController.php # Business logic
+├── database/
+│   ├── migrations/
+│   │   └── 2026_02_13_create_students_table.php
+│   └── seeders/
+│       └── StudentSeeder.php     # Sample data
+├── resources/views/
+│   ├── layouts/
+│   │   └── app.blade.php         # Master template
+│   └── students/
+│       ├── index.blade.php       # List students
+│       ├── create.blade.php      # Add form
+│       ├── edit.blade.php        # Edit form
+│       └── show.blade.php        # Detail page
+├── routes/
+│   └── web.php                   # URL mappings
+└── database.sqlite               # Database file</code></pre>
+                <aside class="notes">
+                    This structure follows Laravel conventions. Models represent data, Controllers handle logic, Views display UI, and routes map URLs to actions. This organization makes scaling the application much easier.
+                </aside>
+            </section>
+
+            <!-- SLIDE 10: MODEL CODE -->
+            <section>
+                <h2>The Model - Student.php</h2>
+                <pre><code class="language-php">namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Student extends Model
+{
+    protected $fillable = [
+        'nim',
+        'name',
+        'email',
+        'phone',
+        'address',
+        'major'
+    ];
+}</code></pre>
+                <p style="margin-top: 20px; font-size: 0.8em;">
+                    <strong>Key Points:</strong>
+                    • Represents students table
+                    • $fillable = Mass assignment protection
+                    • Automatic timestamps (created_at, updated_at)
+                </p>
+                <aside class="notes">
+                    The Model is our bridge to the database. By defining $fillable, we ensure only specific fields can be mass-assigned, preventing security vulnerabilities. Eloquent handles all database operations automatically.
+                </aside>
+            </section>
+
+            <!-- SLIDE 11: CONTROLLER CODE - Part 1 -->
+            <section>
+                <h2>The Controller - StudentController.php (1/2)</h2>
+                <pre><code class="language-php">public function index()
+{
+    $students = Student::all();
+    return view('students.index', compact('students'));
+}
+
+public function create()
+{
+    return view('students.create');
+}
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'nim' => 'required|unique:students',
+        'name' => 'required',
+        'email' => 'required|email|unique:students',
+        'phone' => 'required',
+        'address' => 'required',
+        'major' => 'required'
+    ]);
+
+    Student::create($validated);
+    return redirect('/students')
+        ->with('success', 'Student added successfully');
+}</code></pre>
+                <aside class="notes">
+                    These are the CREATE and READ operations. Store method validates input before saving, ensuring data integrity. The validate method throws exception if validation fails, which we handle in the view with error messages.
+                </aside>
+            </section>
+
+            <!-- SLIDE 12: CONTROLLER CODE - Part 2 -->
+            <section>
+                <h2>The Controller - StudentController.php (2/2)</h2>
+                <pre><code class="language-php">public function edit(Student $student)
+{
+    return view('students.edit', compact('student'));
+}
+
+public function update(Request $request, Student $student)
+{
+    $validated = $request->validate([
+        'nim' => 'required|unique:students,nim,'.$student->id,
+        'email' => 'required|email|unique:students,email,'.$student->id,
+        'name' => 'required',
+        'phone' => 'required',
+        'address' => 'required',
+        'major' => 'required'
+    ]);
+
+    $student->update($validated);
+    return redirect("/students/{$student->id}")
+        ->with('success', 'Student updated');
+}
+
+public function destroy(Student $student)
+{
+    $student->delete();
+    return redirect('/students')
+        ->with('success', 'Student deleted');
+}</code></pre>
+                <aside class="notes">
+                    These are UPDATE and DELETE operations. Notice in update() we exclude the current record from uniqueness check. This prevents "your own email is already taken" errors.
+                </aside>
+            </section>
+
+            <!-- SLIDE 13: ROUTING & ENDPOINTS -->
+            <section>
+                <h2>Routing & REST Endpoints</h2>
+                <pre><code class="language-php">// routes/web.php
+Route::resource('students', StudentController::class);</code></pre>
+                <p style="margin: 30px 0; font-size: 0.9em;"><strong>This single line generates 7 routes:</strong></p>
+                <table style="font-size: 0.75em;">
+                    <tr style="background: #3f3f3f;">
+                        <th>Method</th>
+                        <th>URI</th>
+                        <th>Controller Action</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr><td>GET</td><td>/students</td><td>index()</td><td>List all</td></tr>
+                    <tr><td>GET</td><td>/students/create</td><td>create()</td><td>Show form</td></tr>
+                    <tr><td>POST</td><td>/students</td><td>store()</td><td>Save new</td></tr>
+                    <tr><td>GET</td><td>/students/{id}</td><td>show()</td><td>View detail</td></tr>
+                    <tr><td>GET</td><td>/students/{id}/edit</td><td>edit()</td><td>Edit form</td></tr>
+                    <tr><td>PUT</td><td>/students/{id}</td><td>update()</td><td>Save changes</td></tr>
+                    <tr><td>DELETE</td><td>/students/{id}</td><td>destroy()</td><td>Delete</td></tr>
+                </table>
+                <aside class="notes">
+                    REST means Representational State Transfer. Our routes follow REST conventions: GET for reading, POST for creating, PUT for updating, DELETE for removing. This makes our API predictable and follows web standards.
+                </aside>
+            </section>
+
+            <!-- SLIDE 14: FORM VALIDATION -->
+            <section>
+                <h2>Form Validation & Error Handling</h2>
+                <pre><code class="language-blade"><!-- resources/views/students/create.blade.php -->
+&lt;form action="/students" method="POST"&gt;
+    @csrf
+    
+    &lt;div&gt;
+        &lt;label&gt;NIM&lt;/label&gt;
+        &lt;input type="text" name="nim" 
+               value="{{ old('nim') }}"&gt;
+        @error('nim')
+            &lt;span style="color: red;"&gt;{{ $message }}&lt;/span&gt;
+        @enderror
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label&gt;Email&lt;/label&gt;
+        &lt;input type="email" name="email"&gt;
+        @error('email')
+            &lt;span style="color: red;"&gt;{{ $message }}&lt;/span&gt;
+        @enderror
+    &lt;/div&gt;
+
+    &lt;button type="submit"&gt;Save Student&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                <aside class="notes">
+                    The @csrf directive adds CSRF token protection. The @error directive displays validation errors. The old() function repopulates form fields after validation failure, improving user experience.
+                </aside>
+            </section>
+
+            <!-- SLIDE 15: SECURITY FEATURES -->
+            <section>
+                <h2>Security Features Built-In</h2>
+                <div style="text-align: left; line-height: 2;">
+                    <h4>🔐 CSRF Protection (Cross-Site Request Forgery)</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        ✓ @csrf token in every form prevents unauthorized requests
+                    </p>
+
+                    <h4>🔐 Mass Assignment Protection</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        ✓ $fillable whitelist prevents attackers from modifying other fields
+                    </p>
+
+                    <h4>🔐 SQL Injection Prevention</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        ✓ Eloquent ORM uses parameterized queries automatically
+                    </p>
+
+                    <h4>🔐 Input Validation</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        ✓ Server-side validation ensures data integrity
+                    </p>
+
+                    <h4>🔐 Password Hashing (Built-in)</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        ✓ Laravel provides bcrypt hashing for authentication
+                    </p>
+                </div>
+                <aside class="notes">
+                    These security features come built-in with Laravel. You don't have to implement them from scratch. This is one of the biggest advantages of using a mature framework - security best practices are baked in.
+                </aside>
+            </section>
+
+            <!-- SLIDE 16: SETUP & DEPLOYMENT -->
+            <section>
+                <h2>Setup & Running the Application</h2>
+                <pre><code class="language-bash"># 1. Clone or extract project
+cd student-management-system
+
+# 2. Install dependencies
+composer install
+
+# 3. Create environment file
+cp .env.example .env
+
+# 4. Generate app key
+php artisan key:generate
+
+# 5. Create database
+php artisan migrate
+
+# 6. Load sample data
+php artisan db:seed
+
+# 7. Start development server
+php artisan serve
+
+# 8. Open in browser
+# http://127.0.0.1:8000/students</code></pre>
+                <p style="margin-top: 20px; font-size: 0.85em;">
+                    <strong>🎉 Application is now running!</strong>
+                </p>
+                <aside class="notes">
+                    These commands set up the entire application. Laravel handles most complexity behind the scenes. Within minutes, you have a working CRUD application with database.
+                </aside>
+            </section>
+
+            <!-- SLIDE 17: LEARNING OUTCOMES -->
+            <section>
+                <h2>What You've Learned Today</h2>
+                <div style="text-align: left;">
+                    <h4 style="color: #00ff00;">✓ Architecture</h4>
+                    <p style="font-size: 0.85em; margin-left: 20px;">MVC pattern separates concerns for maintainable code</p>
+
+                    <h4 style="color: #00ff00;">✓ Database Design</h4>
+                    <p style="font-size: 0.85em; margin-left: 20px;">Schemas, migrations, and Eloquent ORM for database operations</p>
+
+                    <h4 style="color: #00ff00;">✓ CRUD Implementation</h4>
+                    <p style="font-size: 0.85em; margin-left: 20px;">Complete Create, Read, Update, Delete functionality</p>
+
+                    <h4 style="color: #00ff00;">✓ Security Practices</h4>
+                    <p style="font-size: 0.85em; margin-left: 20px;">CSRF protection, input validation, SQL injection prevention</p>
+
+                    <h4 style="color: #00ff00;">✓ Web Framework Usage</h4>
+                    <p style="font-size: 0.85em; margin-left: 20px;">How to leverage framework features for rapid development</p>
+                </div>
+                <aside class="notes">
+                    These concepts apply far beyond Laravel. Understanding MVC, database design, and security will help you learn any web framework. The specific syntax changes, but principles remain the same.
+                </aside>
+            </section>
+
+            <!-- SLIDE 18: PROJECT ENHANCEMENTS -->
+            <section>
+                <h2>Ideas for Enhancement</h2>
+                <ul style="line-height: 2; font-size: 0.9em;">
+                    <li>🔍 <strong>Search & Filter:</strong> Add search box to find students</li>
+                    <li>📊 <strong>Pagination:</strong> Load large datasets page by page</li>
+                    <li>📈 <strong>Statistics:</strong> Dashboard with student counts by major</li>
+                    <li>👤 <strong>Authentication:</strong> Login system with user roles</li>
+                    <li>📧 <strong>Email Notifications:</strong> Send confirmation emails on actions</li>
+                    <li>📱 <strong>API:</strong> Build REST API for mobile apps</li>
+                    <li>🧪 <strong>Testing:</strong> Unit and feature tests with PHPUnit</li>
+                    <li>🚀 <strong>Deploy:</strong> Push to production on hosting platform</li>
+                </ul>
+                <aside class="notes">
+                    These are real features used in production applications. Start with search/filter, then move to more complex features. Each teaches new concepts without starting from scratch.
+                </aside>
+            </section>
+
+            <!-- SLIDE 19: TROUBLESHOOTING -->
+            <section>
+                <h2>Common Issues & Solutions</h2>
+                <table style="font-size: 0.75em;">
+                    <tr style="background: #3f3f3f;">
+                        <th>Issue</th>
+                        <th>Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>"Class not found"</td>
+                        <td>Missing use statement</td>
+                        <td>Check imports at top of file</td>
+                    </tr>
+                    <tr>
+                        <td>Database error</td>
+                        <td>Migration not run</td>
+                        <td>Run php artisan migrate</td>
+                    </tr>
+                    <tr>
+                        <td>View not found</td>
+                        <td>Wrong path in view()</td>
+                        <td>Check file path matches</td>
+                    </tr>
+                    <tr>
+                        <td>Port 8000 in use</td>
+                        <td>Another app using port</td>
+                        <td>php artisan serve --port=8001</td>
+                    </tr>
+                    <tr>
+                        <td>CSRF token mismatch</td>
+                        <td>Missing @csrf in form</td>
+                        <td>Add @csrf to forms</td>
+                    </tr>
+                    <tr>
+                        <td>404 Not Found</td>
+                        <td>Route not defined</td>
+                        <td>Check routes/web.php</td>
+                    </tr>
+                </table>
+                <aside class="notes">
+                    Most Laravel issues have simple solutions. Check error messages carefully - they usually tell you exactly what's wrong. The Laravel documentation is excellent for detailed troubleshooting.
+                </aside>
+            </section>
+
+            <!-- SLIDE 20: RESOURCES & REFERENCES -->
+            <section>
+                <h2>Resources for Further Learning</h2>
+                <div style="text-align: left; line-height: 1.8;">
+                    <h4>📚 Official Documentation</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        Laravel: <code>laravel.com/docs</code><br>
+                        PHP: <code>php.net/docs</code>
+                    </p>
+
+                    <h4>🎓 Learning Platforms</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        Laracasts, Udemy, freeCodeCamp YouTube
+                    </p>
+
+                    <h4>🤝 Community</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        Laravel Discord, Stack Overflow, GitHub Discussions
+                    </p>
+
+                    <h4>📁 This Project</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        Source code, documentation, and setup guide included
+                    </p>
+
+                    <h4>📧 Support</h4>
+                    <p style="font-size: 0.8em; margin-left: 20px;">
+                        Email with questions - I'm here to help!
+                    </p>
+                </div>
+                <aside class="notes">
+                    Don't try to memorize everything. Bookmark the Laravel documentation - you'll reference it constantly. The community is very helpful. Most questions have been answered before.
+                </aside>
+            </section>
+
+            <!-- SLIDE 21: Q&A & CLOSING -->
+            <section>
+                <h1>Questions?</h1>
+                <div style="margin-top: 60px; line-height: 2;">
+                    <p><strong>Project Repository:</strong></p>
+                    <p style="font-size: 0.9em; color: #888;">student-management-system/</p>
+
+                    <p style="margin-top: 40px;"><strong>What's Included:</strong></p>
+                    <ul style="font-size: 0.85em;">
+                        <li>Complete working application</li>
+                        <li>Comprehensive documentation</li>
+                        <li>Database migrations & seeders</li>
+                        <li>Responsive UI templates</li>
+                    </ul>
+
+                    <p style="margin-top: 40px; font-size: 0.85em; color: #888;">
+                        Thank you for attending! Happy coding! 🚀
+                    </p>
+                </div>
+                <aside class="notes">
+                    Thank you all for your attention and participation. You now have everything needed to build and extend this application. Feel free to reach out with questions - I'm here to help you succeed.
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+</html>

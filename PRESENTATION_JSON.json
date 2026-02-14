@@ -1,0 +1,619 @@
+{
+  "presentation": {
+    "title": "Laravel Student Management System - Seminar Nasional Database Management",
+    "date": "14 Februari 2026",
+    "duration": "60 minutes",
+    "slides": [
+      {
+        "slide_number": 1,
+        "title": "SEMINAR NASIONAL DATABASE MANAGEMENT",
+        "type": "title_slide",
+        "content": {
+          "main_title": "Laravel Student Management System",
+          "subtitle": "From Architecture to Implementation",
+          "date": "14 Februari 2026 | Zoom Meeting",
+          "tags": ["Database Design", "Web Development", "Laravel Framework"]
+        },
+        "notes": "Opening slide - selamatkan peserta, jelaskan topik presentasi"
+      },
+      {
+        "slide_number": 2,
+        "title": "Agenda Presentasi",
+        "type": "content_slide",
+        "sections": [
+          {
+            "time": "5 min",
+            "topic": "Pengenalan Sistem",
+            "points": ["Apa itu Student Management System?", "Tujuan pembelajaran"]
+          },
+          {
+            "time": "10 min",
+            "topic": "Konsep Database",
+            "points": ["Relational Database", "Schema Design", "Entity Relationship"]
+          },
+          {
+            "time": "10 min",
+            "topic": "Teknologi Laravel",
+            "points": ["Framework overview", "MVC Architecture"]
+          },
+          {
+            "time": "15 min",
+            "topic": "Demo Aplikasi",
+            "points": ["Menjalankan aplikasi", "CRUD Operations"]
+          },
+          {
+            "time": "15 min",
+            "topic": "Code Walkthrough",
+            "points": ["Model & Controller", "Database Migrations"]
+          },
+          {
+            "time": "5 min",
+            "topic": "Q&A & Tips",
+            "points": ["Pertanyaan peserta", "Tips pengembangan"]
+          }
+        ],
+        "notes": "Jelaskan alur presentasi dan time allocation"
+      },
+      {
+        "slide_number": 3,
+        "title": "Learning Objectives",
+        "type": "content_slide",
+        "content": {
+          "concepts": [
+            "MVC Architecture",
+            "Database Schema Design",
+            "RESTful API Principles",
+            "Form Validation & Security"
+          ],
+          "implementation": [
+            "Membuat Model dengan Eloquent ORM",
+            "Menulis Controller untuk CRUD",
+            "Membuat View dengan Blade Templating",
+            "Database Migration & Seeding"
+          ],
+          "best_practices": [
+            "Code organization & structure",
+            "Security implementation",
+            "Error handling",
+            "Data validation"
+          ]
+        },
+        "notes": "Jelaskan apa yang akan dipelajari peserta"
+      },
+      {
+        "slide_number": 4,
+        "title": "Project Overview",
+        "type": "content_slide",
+        "content": {
+          "project_name": "Student Management System",
+          "type": "Full-Stack Web Application",
+          "difficulty": "Beginner to Intermediate",
+          "duration": "2-3 hours",
+          "features": [
+            "Create Student (Tambah Data)",
+            "Read Student (Lihat Data)",
+            "Update Student (Edit Data)",
+            "Delete Student (Hapus Data)",
+            "Form Validation",
+            "Database Migration",
+            "Responsive UI"
+          ]
+        },
+        "notes": "Gambaran umum tentang project"
+      },
+      {
+        "slide_number": 5,
+        "title": "Technology Stack",
+        "type": "content_slide",
+        "content": {
+          "stack": [
+            {
+              "category": "Backend Framework",
+              "technology": "Laravel 12.51"
+            },
+            {
+              "category": "Programming Language",
+              "technology": "PHP 8.2+"
+            },
+            {
+              "category": "Database",
+              "technology": "SQLite 3.x"
+            },
+            {
+              "category": "Frontend Framework",
+              "technology": "Bootstrap 5.3"
+            },
+            {
+              "category": "Templating Engine",
+              "technology": "Blade (Laravel)"
+            },
+            {
+              "category": "ORM",
+              "technology": "Eloquent"
+            }
+          ],
+          "why": "Laravel populer dengan dokumentasi lengkap, SQLite ringan untuk development"
+        },
+        "notes": "Jelaskan mengapa stack ini dipilih"
+      },
+      {
+        "slide_number": 6,
+        "title": "MVC Architecture",
+        "type": "diagram_slide",
+        "content": {
+          "description": "Model-View-Controller Pattern",
+          "flow": [
+            "Routes (web.php) - URL Routing",
+            "Controller (StudentController.php) - Business Logic",
+            "Model (Student.php) - Database Queries",
+            "Database (database.sqlite) - Data Storage",
+            "View (Blade Templates) - User Interface"
+          ],
+          "methods": [
+            "index() - List students",
+            "create() - Show form",
+            "store() - Save data",
+            "show() - View detail",
+            "edit() - Edit form",
+            "update() - Update data",
+            "destroy() - Delete data"
+          ]
+        },
+        "notes": "Tunjukkan diagram flow MVC"
+      },
+      {
+        "slide_number": 7,
+        "title": "Database Schema",
+        "type": "content_slide",
+        "content": {
+          "table": "students",
+          "fields": [
+            {
+              "name": "id",
+              "type": "INTEGER PRIMARY KEY",
+              "constraint": "Auto increment",
+              "description": "Identitas unik"
+            },
+            {
+              "name": "nim",
+              "type": "VARCHAR(255)",
+              "constraint": "UNIQUE, NOT NULL",
+              "description": "Nomor Identitas Mahasiswa"
+            },
+            {
+              "name": "name",
+              "type": "VARCHAR(255)",
+              "constraint": "NOT NULL",
+              "description": "Nama lengkap"
+            },
+            {
+              "name": "email",
+              "type": "VARCHAR(255)",
+              "constraint": "UNIQUE, NOT NULL",
+              "description": "Email mahasiswa"
+            },
+            {
+              "name": "phone",
+              "type": "VARCHAR(255)",
+              "constraint": "NOT NULL",
+              "description": "Nomor telepon"
+            },
+            {
+              "name": "address",
+              "type": "TEXT",
+              "constraint": "NOT NULL",
+              "description": "Alamat lengkap"
+            },
+            {
+              "name": "major",
+              "type": "VARCHAR(255)",
+              "constraint": "NOT NULL",
+              "description": "Program studi"
+            },
+            {
+              "name": "created_at",
+              "type": "TIMESTAMP",
+              "constraint": "Auto",
+              "description": "Waktu pembuatan"
+            },
+            {
+              "name": "updated_at",
+              "type": "TIMESTAMP",
+              "constraint": "Auto",
+              "description": "Waktu update"
+            }
+          ]
+        },
+        "notes": "Jelaskan field-field dan constraint database"
+      },
+      {
+        "slide_number": 8,
+        "title": "CRUD Operations Flow",
+        "type": "diagram_slide",
+        "content": {
+          "operations": [
+            {
+              "operation": "CREATE",
+              "steps": [
+                "User klik 'Add Student'",
+                "GET /students/create",
+                "Tampil form",
+                "User submit form",
+                "POST /students",
+                "Validasi & simpan data",
+                "Redirect ke list"
+              ]
+            },
+            {
+              "operation": "READ",
+              "steps": [
+                "GET /students",
+                "StudentController::index()",
+                "Student::all()",
+                "Tampilkan di tabel"
+              ]
+            },
+            {
+              "operation": "UPDATE",
+              "steps": [
+                "User klik 'Edit'",
+                "GET /students/{id}/edit",
+                "Tampil form (pre-filled)",
+                "User submit",
+                "PUT /students/{id}",
+                "Update data"
+              ]
+            },
+            {
+              "operation": "DELETE",
+              "steps": [
+                "User klik 'Delete'",
+                "Confirm dialog",
+                "DELETE /students/{id}",
+                "Hapus data"
+              ]
+            }
+          ]
+        },
+        "notes": "Jelaskan alur setiap operasi CRUD"
+      },
+      {
+        "slide_number": 9,
+        "title": "File Structure",
+        "type": "content_slide",
+        "content": {
+          "structure": [
+            "app/Models/Student.php",
+            "app/Http/Controllers/StudentController.php",
+            "database/migrations/create_students_table.php",
+            "database/seeders/StudentSeeder.php",
+            "resources/views/layouts/app.blade.php",
+            "resources/views/students/index.blade.php",
+            "resources/views/students/create.blade.php",
+            "resources/views/students/edit.blade.php",
+            "resources/views/students/show.blade.php",
+            "routes/web.php",
+            "database.sqlite"
+          ],
+          "total_files": "11 main files"
+        },
+        "notes": "Tunjukkan struktur folder project"
+      },
+      {
+        "slide_number": 10,
+        "title": "Code Example - Model",
+        "type": "code_slide",
+        "language": "php",
+        "file": "app/Models/Student.php",
+        "code": "<?php\nnamespace App\\Models;\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass Student extends Model\n{\n    protected $fillable = [\n        'nim',\n        'name',\n        'email',\n        'phone',\n        'address',\n        'major'\n    ];\n}",
+        "notes": "Jelaskan mass assignment protection dengan $fillable"
+      },
+      {
+        "slide_number": 11,
+        "title": "Code Example - Controller Store",
+        "type": "code_slide",
+        "language": "php",
+        "file": "app/Http/Controllers/StudentController.php",
+        "code": "public function store(Request $request)\n{\n    $validated = $request->validate([\n        'nim' => 'required|unique:students',\n        'name' => 'required',\n        'email' => 'required|email|unique:students',\n        'phone' => 'required',\n        'address' => 'required',\n        'major' => 'required'\n    ]);\n\n    Student::create($validated);\n    return redirect()->route('students.index')\n        ->with('success', 'Student created successfully');\n}",
+        "notes": "Jelaskan validation rules dan data creation"
+      },
+      {
+        "slide_number": 12,
+        "title": "Code Example - Blade Template",
+        "type": "code_slide",
+        "language": "html",
+        "file": "resources/views/students/index.blade.php",
+        "code": "@foreach($students as $student)\n    <tr>\n        <td>{{ $student->nim }}</td>\n        <td>{{ $student->name }}</td>\n        <td>{{ $student->email }}</td>\n        <td>{{ $student->phone }}</td>\n        <td>{{ $student->major }}</td>\n        <td>\n            <a href=\"{{ route('students.show', $student->id) }}\">View</a>\n            <a href=\"{{ route('students.edit', $student->id) }}\">Edit</a>\n            <form action=\"{{ route('students.destroy', $student->id) }}\" method=\"POST\">\n                @csrf @method('DELETE')\n                <button type=\"submit\">Delete</button>\n            </form>\n        </td>\n    </tr>\n@endforeach",
+        "notes": "Jelaskan Blade syntax dan looping"
+      },
+      {
+        "slide_number": 13,
+        "title": "Routing & API Endpoints",
+        "type": "table_slide",
+        "content": {
+          "table": [
+            {
+              "method": "GET",
+              "url": "/students",
+              "controller": "index()",
+              "action": "Tampil list"
+            },
+            {
+              "method": "GET",
+              "url": "/students/create",
+              "controller": "create()",
+              "action": "Tampil form"
+            },
+            {
+              "method": "POST",
+              "url": "/students",
+              "controller": "store()",
+              "action": "Simpan data"
+            },
+            {
+              "method": "GET",
+              "url": "/students/{id}",
+              "controller": "show()",
+              "action": "Tampil detail"
+            },
+            {
+              "method": "GET",
+              "url": "/students/{id}/edit",
+              "controller": "edit()",
+              "action": "Tampil form"
+            },
+            {
+              "method": "PUT",
+              "url": "/students/{id}",
+              "controller": "update()",
+              "action": "Update data"
+            },
+            {
+              "method": "DELETE",
+              "url": "/students/{id}",
+              "controller": "destroy()",
+              "action": "Hapus data"
+            }
+          ],
+          "routing": "Route::resource('students', StudentController::class);"
+        },
+        "notes": "Jelaskan RESTful routing principle"
+      },
+      {
+        "slide_number": 14,
+        "title": "Form Validation",
+        "type": "content_slide",
+        "content": {
+          "validation_rules": {
+            "nim": "required|unique:students",
+            "name": "required",
+            "email": "required|email|unique:students",
+            "phone": "required",
+            "address": "required",
+            "major": "required"
+          },
+          "rule_explanations": [
+            {
+              "rule": "required",
+              "meaning": "Field harus diisi"
+            },
+            {
+              "rule": "unique:students",
+              "meaning": "Nilai harus unik di tabel students"
+            },
+            {
+              "rule": "email",
+              "meaning": "Format harus email yang valid"
+            }
+          ],
+          "error_display": "Error messages ditampilkan otomatis di form"
+        },
+        "notes": "Jelaskan validation rules dan error handling"
+      },
+      {
+        "slide_number": 15,
+        "title": "Security Features",
+        "type": "content_slide",
+        "content": {
+          "features": [
+            {
+              "feature": "CSRF Protection",
+              "implementation": "@csrf in forms",
+              "benefit": "Prevent unauthorized requests"
+            },
+            {
+              "feature": "SQL Injection Prevention",
+              "implementation": "Eloquent ORM",
+              "benefit": "Safe parameterized queries"
+            },
+            {
+              "feature": "Mass Assignment Protection",
+              "implementation": "$fillable attribute",
+              "benefit": "Control which fields can be assigned"
+            },
+            {
+              "feature": "Input Validation",
+              "implementation": "Validation rules",
+              "benefit": "Ensure data integrity"
+            },
+            {
+              "feature": "Password Hashing",
+              "implementation": "bcrypt() function",
+              "benefit": "Secure password storage"
+            }
+          ]
+        },
+        "notes": "Jelaskan security best practices"
+      },
+      {
+        "slide_number": 16,
+        "title": "Setup & Deployment",
+        "type": "content_slide",
+        "content": {
+          "requirements": [
+            "PHP 8.2 or higher",
+            "Composer",
+            "Command line terminal"
+          ],
+          "setup_steps": [
+            "cd student-management-system",
+            "composer install",
+            "php artisan key:generate",
+            "php artisan migrate",
+            "php artisan db:seed",
+            "php artisan serve",
+            "Visit: http://127.0.0.1:8000/students"
+          ],
+          "useful_commands": [
+            "php artisan route:list",
+            "php artisan tinker",
+            "php artisan migrate:fresh",
+            "php artisan db:seed",
+            "php artisan cache:clear"
+          ]
+        },
+        "notes": "Jelaskan setup process step-by-step"
+      },
+      {
+        "slide_number": 17,
+        "title": "Learning Outcomes",
+        "type": "content_slide",
+        "content": {
+          "fundamental_concepts": [
+            "MVC Architecture understanding",
+            "Database design & normalization",
+            "RESTful API principles",
+            "Web request/response cycle"
+          ],
+          "technical_skills": [
+            "Create Eloquent Models",
+            "Build Controllers with CRUD",
+            "Design Database migrations",
+            "Write Blade templates",
+            "Implement form validation"
+          ],
+          "best_practices": [
+            "Security implementation",
+            "Error handling",
+            "Code organization",
+            "Database optimization"
+          ]
+        },
+        "notes": "Summary dari apa yang dipelajari"
+      },
+      {
+        "slide_number": 18,
+        "title": "Project Enhancements",
+        "type": "content_slide",
+        "content": {
+          "level_1": [
+            "Search functionality",
+            "Pagination (10 rows per page)",
+            "Sort by column",
+            "Export to CSV"
+          ],
+          "level_2": [
+            "User authentication",
+            "Role-based access control",
+            "File upload",
+            "Dashboard with statistics",
+            "Email notifications"
+          ],
+          "level_3": [
+            "REST API development",
+            "Mobile app integration",
+            "Real-time features",
+            "Advanced analytics",
+            "Performance optimization"
+          ]
+        },
+        "notes": "Berikan ide-ide pengembangan lanjutan"
+      },
+      {
+        "slide_number": 19,
+        "title": "Troubleshooting",
+        "type": "content_slide",
+        "content": {
+          "issues": [
+            {
+              "problem": "Route not found (404)",
+              "solution": "Check URL is /students, run php artisan route:list"
+            },
+            {
+              "problem": "Database file not found",
+              "solution": "Run php artisan migrate && php artisan db:seed"
+            },
+            {
+              "problem": "CSRF token mismatch (419)",
+              "solution": "Add @csrf in form, clear browser cache"
+            },
+            {
+              "problem": "Form validation errors",
+              "solution": "Fill all required fields, check email format"
+            },
+            {
+              "problem": "500 Server Error",
+              "solution": "Check logs, clear cache, restart server"
+            }
+          ]
+        },
+        "notes": "Provide common troubleshooting tips"
+      },
+      {
+        "slide_number": 20,
+        "title": "Resources & References",
+        "type": "content_slide",
+        "content": {
+          "official_docs": [
+            "Laravel Documentation: https://laravel.com/docs",
+            "Blade Templating: https://laravel.com/docs/blade",
+            "Eloquent ORM: https://laravel.com/docs/eloquent"
+          ],
+          "tutorials": [
+            "Laracasts: https://laracasts.com",
+            "YouTube: Laravel Tutorial for Beginners",
+            "Udemy: Laravel courses"
+          ],
+          "community": [
+            "Stack Overflow (tag: laravel)",
+            "Laravel Discord Community",
+            "GitHub Issues & Discussions"
+          ],
+          "local_resources": [
+            "DOCUMENTATION.md",
+            "QUICKSTART.md",
+            "PROJECT_README.md"
+          ]
+        },
+        "notes": "Provide resources untuk pembelajaran lanjutan"
+      },
+      {
+        "slide_number": 21,
+        "title": "Q&A & Closing",
+        "type": "closing_slide",
+        "content": {
+          "common_questions": [
+            {
+              "q": "Apakah saya perlu MySQL untuk project ini?",
+              "a": "Tidak, kami menggunakan SQLite yang lebih ringan"
+            },
+            {
+              "q": "Bisakah aplikasi ini di-deploy ke production?",
+              "a": "Ya, dengan beberapa konfigurasi tambahan"
+            },
+            {
+              "q": "Apakah harus menggunakan Laravel?",
+              "a": "Tidak, bisa pakai framework lain (CodeIgniter, Symfony)"
+            },
+            {
+              "q": "Bagaimana cara menambah field baru?",
+              "a": "Buat migration baru dan jalankan php artisan migrate"
+            }
+          ],
+          "closing_message": "Terima kasih! Dokumentasi lengkap tersedia dalam project folder. Silakan eksplorasi dan praktek lebih lanjut! Happy Coding! 🚀"
+        },
+        "notes": "Answer questions dan closing presentation"
+      }
+    ]
+  }
+}
